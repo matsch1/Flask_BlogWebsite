@@ -1,13 +1,16 @@
-from flask import Flask, render_template, flash
+from flask import Flask, render_template, flash, url_for, redirect, request
 from flask_wtf import FlaskForm  # pip install flask-wtf
-from wtforms import StringField, SubmitField
-from wtforms.validators import DataRequired
+from flask_login import login_user, UserMixin, LoginManager, login_required, logout_user, current_user
+from flask_bcrypt import Bcrypt
+from wtforms import StringField, SubmitField, PasswordField
+from wtforms.validators import DataRequired, InputRequired, Length
 from wtforms.widgets import TextArea
 from flask_sqlalchemy import SQLAlchemy  # pip install Flask-SQLAlchemy
 from sqlalchemy import desc
 from datetime import datetime
 import os
 from dotenv import load_dotenv  # pip install python-dotenv
+import time
 
 load_dotenv()
 app = Flask(__name__)
@@ -22,6 +25,35 @@ app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///' + \
     os.path.join(folder_directory, 'database.db')
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 db = SQLAlchemy(app)
+
+# authentification
+login_manager = LoginManager()
+login_manager.init_app(app)
+login_manager.login_view = 'login'
+bcrypt = Bcrypt(app)
+app.config['TESTING'] = False
+
+
+@login_manager.user_loader
+def load_user(user_id):
+    user = User()
+    if user_id == user.id:
+        return user
+    else:
+        return None
+
+
+class User(UserMixin):
+    def __init__(self) -> None:
+        super().__init__()
+        id = os.getenv("USER_BLOG_ID")
+        username = os.getenv("USER_BLOG_ADMIN")
+        password_hash = bcrypt.generate_password_hash(
+            os.getenv("USER_BLOG_PW"))
+
+        self.id = id
+        self.password_hash = password_hash
+        self.username = username
 
 
 class Blog(db.Model):
@@ -46,6 +78,16 @@ class BlogWriterForm(FlaskForm):
     submit = SubmitField("Submit")
 
 
+class LoginForm(FlaskForm):
+    username = StringField(validators=[
+                           InputRequired(), Length(min=4, max=20)], render_kw={"placeholder": "Username"})
+
+    password = PasswordField(validators=[
+                             InputRequired(), Length(min=8, max=20)], render_kw={"placeholder": "Password"})
+
+    submit = SubmitField('Login')
+
+
 @app.route('/')  # for blog posts
 def index():
     posts = Blog.query.order_by(desc(Blog.date_posted))
@@ -63,7 +105,25 @@ def books():
     return render_template("books.html")
 
 
+@app.route('/add', methods=['GET', 'POST'])
+def blog_login():
+    user = User()
+    form = LoginForm()
+
+    if form.validate_on_submit():
+        username = user.username or ""
+        password = user.password_hash or ""
+        if user:
+            if bcrypt.check_password_hash(password, form.password.data):
+                login_user(user)
+                return redirect(url_for('add_post'))
+            else:
+                flash("Invalid password")
+    return render_template('add.html', form=form)
+
+
 @app.route('/add-post', methods=['GET', 'POST'])
+@login_required
 def add_post():
     form = BlogWriterForm()
 
@@ -80,6 +140,12 @@ def add_post():
         db.session.commit()
         print("data stored")
         flash("Blog Post Submitted Successfully")
+    if request.method == 'POST':
+        if request.form.get('logout') == "Logout":
+            logout_user()
+            return redirect(url_for('index'))
+        else:
+            pass
 
     return render_template("blog_input.html", form=form)
 
