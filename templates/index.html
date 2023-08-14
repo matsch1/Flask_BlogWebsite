@@ -1,5 +1,16 @@
 {% extends 'base.html' %}
-
 {% block content %}
-    <h1>nav bar and free space for a blog</h1>
+    <h1>Blog</h1>
+    This is a collection of my learnings.
+
+    {% for post in posts %}
+        <div class="shadow p-3 mb-5 bg-body-tertiary rounded container px-4">
+            <h2>{{post.title}}</h2> <br/>
+            <b>By: {{post.author}} | {{post.date_posted|formatdatetime}}</b> <br/>
+            <small>{{post.slug}}</small> <br/>
+            {{post.content}} <br/>
+            <hr>
+        </div>
+    {% endfor %}
+
 {% endblock %}
