@@ -1,6 +1,6 @@
 from flask import render_template, redirect, flash, url_for, request
 from sqlalchemy import desc
-from flask_login import login_user, login_required, logout_user
+from flask_login import login_required, logout_user
 
 from app.blog import bp, BlogWriterForm
 from app.models.blog import Blog
@@ -15,8 +15,8 @@ def index():
 
 
 @bp.route('/add', methods=['GET', 'POST'])
-# @login_required
-def add_post():
+@login_required
+def add():
     form = BlogWriterForm()
 
     if form.validate_on_submit():
@@ -30,6 +30,11 @@ def add_post():
         db.session.add(post)
         db.session.commit()
         flash("Blog Post Submitted Successfully")
+
+    if request.method == 'POST' and form.logout.data:
+        logout_user()
+        return redirect(url_for('blog.index'))
+
 
 
     return render_template("blog/add.html", form=form)

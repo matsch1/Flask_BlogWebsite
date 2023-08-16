@@ -17,6 +17,7 @@ class BlogWriterForm(FlaskForm):
     slug = StringField("Slug", validators=[DataRequired()])
     author = StringField("Author", validators=[DataRequired()])
     submit = SubmitField("Submit")
+    logout = SubmitField(label='Logout',render_kw={'formnovalidate': True})
 
 
 
