@@ -1,5 +1,7 @@
 from flask import Flask
 from flask_login import LoginManager
+from flask_pagedown import PageDown
+from flask_migrate import Migrate
 from config import Config
 from app.extensions import db
 from app.blog.authentication import BlogWriterUser
@@ -13,10 +15,13 @@ def create_app(config_class=Config):
 
     # Initialize Flask extensions here
     db.init_app(app)
+    migrate = Migrate(app, db)
 
     login_manager = LoginManager()
     login_manager.init_app(app)
     login_manager.login_view = 'authentication.index'
+
+    pagedown = PageDown(app)
 
     # Register blueprints here
     from app.main import bp as main_bp
@@ -31,7 +36,7 @@ def create_app(config_class=Config):
     @app.route('/test/')
     def test_page():
         return '<h1>Testing the Flask Application Factory Pattern</h1>'
-    
+
     @login_manager.user_loader
     def load_user(user_id):
         user = BlogWriterUser()

@@ -12,6 +12,7 @@ load_dotenv()
 
 bp = Blueprint('authentication', __name__)
 
+
 class LoginForm(FlaskForm):
     username = StringField(validators=[
                            InputRequired(), Length(min=4, max=20)], render_kw={"placeholder": "Username"})
@@ -31,5 +32,6 @@ class BlogWriterUser(UserMixin):
         name = self.name
         password_hash = self.password_hash
 
+
 # muss ganz unten stehen
-from app.blog.authentication import routes
+from app.blog.authentication import routes  # NOQA
