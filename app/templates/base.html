@@ -8,11 +8,35 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous">
     <!--file CSS-->
     <link href="{{ url_for('static',filename = 'css/style.css') }}" rel="stylesheet">
+    
     {% block head %}
     {% endblock %}
   </head>
   <body>
-    {% include 'navbar.html' %}
+    <header>
+      <!-- Background image -->
+      <div
+        class="p-5 text-center bg-image"
+        style="
+          background-image: url('../static/images/header.png');
+          height: 300px;
+          margin-top: 10px;
+        "
+      >
+        <div class="mask" style="background-color: rgba(0, 0, 0, 0.6);">
+          <div class="d-flex justify-content-center align-items-center h-100">
+            <div class="text-white">
+              {% block header_content %}
+              {% endblock %}
+              <h4 class="mb-3">matshcode</h4>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Navbar -->
+      {% include 'navbar.html' %}
+    </header>
     </br>
     {% block content %}
     {% endblock %}

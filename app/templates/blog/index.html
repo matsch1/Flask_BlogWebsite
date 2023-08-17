@@ -1,6 +1,10 @@
 {% extends 'base.html' %}
+
+{% block header_content %}
+    <h1 class="mb-3">Blog</h1>
+{% endblock %}
+
 {% block content %}
-    <h1>Blog</h1>
     This is a collection of my learnings.
 
     {% for post in posts %}
