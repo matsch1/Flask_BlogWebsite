@@ -2,6 +2,16 @@
 
 {% block head %}
     {{ pagedown.html_head() }}
+
+    <style>         
+        .flask-pagedown-preview {
+            border: 1px dotted black;
+            background-color: #f0f0f0;
+            vertical-align: top;
+        }
+        
+    </style>   
+
 {% endblock %}
 
 {% block content %}
@@ -28,7 +38,14 @@
         {{ form.author(class="form-control",rows="5") }}
         <br/>
         {{ form.content.label(class="form-label") }}
-        {{ form.content(class="form-control") }}
+        <table style="width:100%">
+            <tr>
+                <td style="width:40%">{{ form.content(class="form-control", only_input=True,rows = 20) }}</td>
+                <td>{{form.content(class="form-control", only_preview=True) }}</td>
+            </tr>
+        </table>
+        
+        
         <br/>
         {{ form.submit(class="btn btn-secondary") }}
         <br/><br/>
