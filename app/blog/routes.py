@@ -11,7 +11,7 @@ from app.extensions import db
 def index():
     posts = Blog.query.order_by(desc(Blog.date_posted))
 
-    return render_template("blog/index.html" , posts=posts)
+    return render_template("blog/index.html", posts=posts)
 
 
 @bp.route('/add', methods=['GET', 'POST'])
@@ -35,9 +35,13 @@ def add():
         logout_user()
         return redirect(url_for('blog.index'))
 
-
-
     return render_template("blog/add.html", form=form)
+
+
+@bp.route('/post/<id>', methods=['GET', 'POST'])
+def post(id):
+    post = Blog.query.get(id)
+    return render_template("blog/post.html", post=post)
 
 
 @bp.app_template_filter('formatdatetime')
@@ -46,5 +50,3 @@ def format_datetime(value, format="%d. %b %Y - %I:%M"):
     if value is None:
         return ""
     return value.strftime(format)
-
-
