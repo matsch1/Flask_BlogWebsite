@@ -12,14 +12,15 @@ class Blog(db.Model):
     content_html = db.Column(db.Text)
     author = db.Column(db.String(100), nullable=False)
     date_posted = db.Column(
-        db.DateTime, default=datetime.utcnow())
+        db.DateTime, default=datetime.now())
     slug = db.Column(db.String(255))
+    categories = db.Column(db.String(100), nullable=True)
 
     @staticmethod
     def on_changed_content(target, value, oldvalue, initiator):
         allowed_tags = ['a', 'abbr', 'acronym', 'b', 'blockquote', 'code',
                         'em', 'i', 'li', 'ol', 'pre', 'strong', 'ul',
-                        'h1', 'h2', 'h3', 'p']
+                        'h1', 'h2', 'h3', 'p', 'Img']
         target.content_html = bleach.linkify(bleach.clean(
             markdown(value, output_format='html'),
             tags=allowed_tags, strip=True))

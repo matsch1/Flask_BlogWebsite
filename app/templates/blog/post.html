@@ -3,7 +3,10 @@
 {% block header_content %}
     <h1 class="mb-3">{{post.title}}</h1>
     <b>By: {{post.author}} | {{post.date_posted|formatdatetime}}</b> <br/>
-        <small>{{post.slug}}</small> <br/>
+    - 
+    {% for categorie in categories %}
+        {{ categorie }}  - 
+    {% endfor %}
     <br/><br/>
 {% endblock %}
 

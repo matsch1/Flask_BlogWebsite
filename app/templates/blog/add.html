@@ -28,29 +28,43 @@
     <form method = "POST">
         {{ form.hidden_tag() }}
 
-        {{ form.title.label(class="form-label") }}
+        <b>{{ form.title.label(class="form-label") }}</b>
         {{ form.title(class="form-control") }}
         <br/>
-        {{ form.slug.label(class="form-label") }}
+        <b>{{ form.slug.label(class="form-label") }}</b>
         {{ form.slug(class="form-control") }}
+        <br/> 
+        <table>
+            <tr>  
+                {% for field  in form.categories %}
+                    <th>
+                        {{ field.label }}  
+                    </th>
+                {% endfor %}
+            </tr> 
+            <tr>  
+                {% for field  in form.categories %}
+                    <td>
+                        {{ field }}  
+                    </td>
+                {% endfor %}
+            </tr> 
+        </table>
         <br/>
-        {{ form.author.label(class="form-label") }}
+        <b>{{ form.author.label(class="form-label") }}</b>
         {{ form.author(class="form-control",rows="5") }}
         <br/>
-        {{ form.content.label(class="form-label") }}
+        <b>{{ form.content.label(class="form-label") }}</b>
         <table style="width:100%">
             <tr>
                 <td style="width:40%">{{ form.content(class="form-control", only_input=True,rows = 20) }}</td>
                 <td>{{form.content(class="form-control", only_preview=True) }}</td>
             </tr>
         </table>
-        
-        
         <br/>
         {{ form.submit(class="btn btn-secondary") }}
         <br/><br/>
         {{ form.logout(class="btn btn-secondary") }}
         <br/>
     </form>
-        
 {% endblock %}
