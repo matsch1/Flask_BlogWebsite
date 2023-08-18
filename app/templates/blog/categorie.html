@@ -19,7 +19,8 @@
                         {% endfor %} 
                     </tr> 
                 </table>
-            </small> <br/><br/>
+            </small>
+            <hr>
             {% if post.content_html %}
                 {{post.content_html[:MAX_NUMBER_OF_CHARS_IN_PREVIEW] | safe}} ... <br/>
             {% else %}
