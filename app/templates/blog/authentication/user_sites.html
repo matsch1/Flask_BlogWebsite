@@ -1,7 +1,7 @@
 {% extends 'base.html' %}
 
 {% block header_content %}
-    <h1 class="mb-3">Login</h1>
+    <h1 class="mb-3">User Sites</h1>
     <br/><br/>
 {% endblock %}
 
@@ -15,10 +15,9 @@
     {% endfor %}
     
     <form method="POST" action="">
-        {{ form.hidden_tag() }}
-        {{ form.username }}
-        {{ form.password }}
-        {{ form.submit }}
+        <button type="button" class="btn btn-light"><a href = "{{ url_for('post.add') }}">Add Post</a></button>
+        <br/><br/>
+        <button type="button" class="btn btn-light"><a href = "{{ url_for('blog.posts_edit') }}">Edit Post</a></button>
     </form> 
 
 {% endblock %}

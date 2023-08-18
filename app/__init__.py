@@ -31,8 +31,11 @@ def create_app(config_class=Config):
     from app.blog import bp as blog_bp
     app.register_blueprint(blog_bp, url_prefix='/blog')
 
+    from app.blog.post import bp as post_bp
+    app.register_blueprint(post_bp, url_prefix='/blog/post')
+
     from app.blog.authentication import bp as auth_bp
-    app.register_blueprint(auth_bp, url_prefix='/blog/auth')
+    app.register_blueprint(auth_bp, url_prefix='/blog/login')
 
     @app.route('/test/')
     def test_page():

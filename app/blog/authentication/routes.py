@@ -20,7 +20,14 @@ def index():
                     return redirect(url_for('blog.add'))
                 elif 'edit' in request.args.get("next"):
                     return redirect(url_for('blog.edit'))
+            else:
+                return redirect(url_for('authentication.user_sites'))
         else:
             flash('Invalid User')
-            redirect(url_for('blog.authentication.index'))
+            redirect(url_for('authentication.index'))
     return render_template("blog/authentication/index.html", form=form)
+
+
+@bp.route('/user_sites', methods=['GET', 'POST'])
+def user_sites():
+    return render_template("blog/authentication/user_sites.html")
