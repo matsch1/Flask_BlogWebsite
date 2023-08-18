@@ -5,19 +5,28 @@ a:link {
 }
 
 a:visited {
-  color: green;
   background-color: transparent;
   text-decoration: none;
 }
 
 a:hover {
-  color: rgb(233, 167, 45);
+  color: green;
   background-color: transparent;
   text-decoration: underline;
 }
 
-a:active {
-  color: yellow;
+.light_link {
+  color: white;
+  background-color: transparent;
+  text-decoration: none;
+}
+.light_link:visited {
+  background-color: transparent;
+  text-decoration: none;
+}
+
+.light_link :hover {
+  color: green;
   background-color: transparent;
   text-decoration: underline;
 }
