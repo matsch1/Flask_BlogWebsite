@@ -1,7 +1,8 @@
 from flask import render_template, redirect, flash, url_for, request, current_app
-from sqlalchemy import desc, literal
+from sqlalchemy import desc
 from flask_login import login_required, logout_user
 from datetime import datetime
+from werkzeug.datastructures import MultiDict
 
 from app.blog import bp, BlogWriterForm
 from app.models.blog import Blog
@@ -11,12 +12,6 @@ from app.extensions import db
 @bp.route('/', methods=['GET', 'POST'])
 def index():
     posts = Blog.query.order_by(desc(Blog.date_posted))
-    # for post in posts:
-    #     if post.categories:
-    #         current_app.logger.info(post.categories)
-    #         categories_array = __convert_string_to_array__(post.categories)
-    #         post.categories = categories_array
-    #         current_app.logger.info(post.categories)
     return render_template("blog/index.html", posts=posts)
 
 
@@ -50,6 +45,13 @@ def add():
     return render_template("blog/add.html", form=form)
 
 
+@bp.route('/edit', methods=['GET', 'POST'])
+@login_required
+def edit():
+    posts = Blog.query.order_by(desc(Blog.date_posted))
+    return render_template("blog/edit.html", posts=posts)
+
+
 @bp.route('/post/<slug>_<id>', methods=['GET', 'POST'])
 def post(id, slug):
     post = Blog.query.get(id)
@@ -58,12 +60,37 @@ def post(id, slug):
     return render_template("blog/post.html", post=post, categories=categories_array)
 
 
+@bp.route('/post/edit/<slug>_<id>', methods=['GET', 'POST'])
+def post_edit(id, slug):
+    post = Blog.query.get(id)
+
+    form = BlogWriterForm(title=post.title, slug=post.slug,
+                          author=post.author, content=post.content, categories=__convert_string_to_array__(post.categories))
+
+    if form.validate_on_submit():
+        # current_app.logger.info('Submit pressed')
+        categories_array = []
+        for categorie in form.categories:
+            categories_array.append(categorie.data)
+            categorie.data = ""
+        categories_string = __convert_array_to_string__(categories_array)
+        setattr(post, 'title', form.title.data)
+        setattr(post, 'content', form.content.data)
+        setattr(post, 'slug', form.slug.data)
+        setattr(post, 'categories', categories_string)
+        db.session.commit()
+
+        flash("Blog Post Updated Successfully")
+
+    if request.method == 'POST' and form.logout.data:
+        logout_user()
+        return redirect(url_for('blog.index'))
+    return render_template("blog/post_edit.html", form=form)
+
+
 @bp.route('/<categorie>', methods=['GET', 'POST'])
 def categorie(categorie):
     posts = Blog.query.filter(Blog.categories.contains(categorie))
-    # current_app.logger.info(posts)
-    for post in posts:
-        current_app.logger.info(post.content_html)
     return render_template("blog/categorie.html", posts=posts, categorie=categorie)
 
 

@@ -1,0 +1,16 @@
+{% extends 'base.html' %}
+
+{% block header_content %}
+    <h1 class="mb-3">Blog</h1>
+    This is a collection of my learnings.
+    <br/><br/>
+{% endblock %}
+
+{% block content %}
+    {% for post in posts %}
+        <div class="shadow p-3 mb-5 bg-body-tertiary rounded container px-4">
+            <h2><a href="{{ url_for('blog.post_edit',id=post.id, slug=post.slug) }}">{{post.title}}</a></h2> <br/>
+            <b>By: {{post.author}} | {{post.date_posted|formatdatetime}}</b> <br/><br/>
+        </div>
+    {% endfor %}
+{% endblock %}
