@@ -8,6 +8,8 @@
     <title>matshCode</title>
     <!--bootstrap CSS-->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous">
+    <!-- Bootstrap Font Icon CSS -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css">
     <!--file CSS-->
     <link href="{{ url_for('static',filename = 'css/style.css') }}" rel="stylesheet">
     
@@ -31,12 +33,17 @@
               {% block header_content %}
               {% endblock %}
               <h5 class="mb-3">matshCode</h5>
+              <h5 class="mb-3"> 
+                <a href="https://www.linkedin.com/in/schaefer-matthias/" target="_blank"><i class="bi bi-linkedin"></i></a>
+                <a href="https://github.com/matsch1" target="_blank"><i class="bi bi-github"></i></a>
+                <a href="https://www.strava.com/athletes/18430548" target="_blank"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-strava" viewBox="0 0 16 16">
+                  <path d="M6.731 0 2 9.125h2.788L6.73 5.497l1.93 3.628h2.766L6.731 0zm4.694 9.125-1.372 2.756L8.66 9.125H6.547L10.053 16l3.484-6.875h-2.112z"/>
+                </svg></a>
+              </h5>
             </div>
           </div>
         </div>
       </div>
-
-      <!-- Navbar -->
       {% include 'navbar.html' %}
     </header>
     </br>
