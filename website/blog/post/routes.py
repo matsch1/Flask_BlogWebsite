@@ -2,10 +2,10 @@ from flask import render_template, redirect, flash, url_for, request, current_ap
 from flask_login import login_required, logout_user
 from datetime import datetime
 
-from app.blog import BlogWriterForm
-from app.blog.post import bp
-from app.models.blog import Blog
-from app.extensions import db
+from website.blog import BlogWriterForm
+from website.blog.post import bp
+from website.models.blog import Blog
+from website.extensions import db
 
 
 @bp.route('/<slug>_<id>', methods=['GET', 'POST'])

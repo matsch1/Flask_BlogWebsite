@@ -1,6 +1,6 @@
 from flask import render_template
-from app.main import bp
-from app.models.blog import Blog
+from website.main import bp
+from website.models.blog import Blog
 
 
 @bp.route('/')
