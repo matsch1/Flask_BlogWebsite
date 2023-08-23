@@ -4,8 +4,9 @@ from flask_pagedown import PageDown
 from flask_migrate import Migrate
 
 from config import Config
-from website.extensions import db
-from website.authentication import BlogWriterUser
+from app.extensions import db
+from app.authentication import BlogWriterUser
+
 
 # Flask factory
 
@@ -25,19 +26,19 @@ def create_app(config_class=Config):
     pagedown = PageDown(app)
 
     # Register blueprints here
-    from website.main import bp as main_bp
+    from app.main import bp as main_bp
     app.register_blueprint(main_bp)
 
-    from website.blog import bp as blog_bp
+    from app.blog import bp as blog_bp
     app.register_blueprint(blog_bp, url_prefix='/blog')
 
-    from website.blog.post import bp as post_bp
+    from app.blog.post import bp as post_bp
     app.register_blueprint(post_bp, url_prefix='/blog/post')
 
-    from website.contact import bp as contact_bp
+    from app.contact import bp as contact_bp
     app.register_blueprint(contact_bp, url_prefix='/contact')
 
-    from website.authentication import bp as auth_bp
+    from app.authentication import bp as auth_bp
     app.register_blueprint(auth_bp, url_prefix='/login')
 
     @app.route('/test/')

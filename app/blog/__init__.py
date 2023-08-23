@@ -21,4 +21,4 @@ class BlogWriterForm(FlaskForm):
 
 
 # muss ganz unten stehen
-from website.blog import routes  # NOQA
+from app.blog import routes  # NOQA

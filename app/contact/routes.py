@@ -1,7 +1,7 @@
 from flask import render_template
 from sqlalchemy import desc
-from website.contact import bp
-from website.models.blog import Blog
+from app.contact import bp
+from app.models.blog import Blog
 
 
 @bp.route('/', methods=['GET', 'POST'])

@@ -2,7 +2,7 @@ from datetime import datetime
 import bleach
 from markdown import markdown
 
-from website.extensions import db
+from app.extensions import db
 
 
 class Blog(db.Model):
