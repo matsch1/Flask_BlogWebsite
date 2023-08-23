@@ -2,8 +2,8 @@ from flask import render_template, redirect, url_for, flash, request, current_ap
 from flask_login import login_user
 from werkzeug.security import check_password_hash
 
-from website.blog.authentication import bp
-from website.blog.authentication import LoginForm, BlogWriterUser
+from website.authentication import bp
+from website.authentication import LoginForm, BlogWriterUser
 
 
 @bp.route('/', methods=['GET', 'POST'])
@@ -25,9 +25,9 @@ def index():
         else:
             flash('Invalid User')
             redirect(url_for('authentication.index'))
-    return render_template("blog/authentication/index.html", form=form)
+    return render_template("authentication/index.html", form=form)
 
 
 @bp.route('/user_sites', methods=['GET', 'POST'])
 def user_sites():
-    return render_template("blog/authentication/user_sites.html")
+    return render_template("authentication/user_sites.html")

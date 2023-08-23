@@ -5,7 +5,7 @@ from flask_migrate import Migrate
 
 from config import Config
 from website.extensions import db
-from website.blog.authentication import BlogWriterUser
+from website.authentication import BlogWriterUser
 
 # Flask factory
 
@@ -34,8 +34,8 @@ def create_app(config_class=Config):
     from website.blog.post import bp as post_bp
     app.register_blueprint(post_bp, url_prefix='/blog/post')
 
-    from website.blog.authentication import bp as auth_bp
-    app.register_blueprint(auth_bp, url_prefix='/blog/login')
+    from website.authentication import bp as auth_bp
+    app.register_blueprint(auth_bp, url_prefix='/login')
 
     @app.route('/test/')
     def test_page():
