@@ -1,32 +1,34 @@
-a:link {
+.dark_link:link {
   color: black;
   background-color: transparent;
   text-decoration: none;
 }
 
-a:visited {
+.dark_link:visited {
+  color:#3d8e97;
   background-color: transparent;
   text-decoration: none;
 }
 
-a:hover {
-  color: green;
+.dark_link:hover {
+  color: #3d8e97;
   background-color: transparent;
   text-decoration: underline;
 }
 
-.light_link {
-  color: white;
+.light_link:link {
+  color: #3D8E97;
   background-color: transparent;
   text-decoration: none;
 }
 .light_link:visited {
+  color: #ADF7B6;
   background-color: transparent;
   text-decoration: none;
 }
 
 .light_link :hover {
-  color: green;
+  color: #FFEE93;
   background-color: transparent;
   text-decoration: underline;
 }

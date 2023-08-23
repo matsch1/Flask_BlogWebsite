@@ -8,7 +8,7 @@
     <b>By: {{post.author}} | {{post.date_posted|formatdatetime}}</b> <br/>
     - 
     {% for categorie in categories %}
-        <a class = "light_link" href = "{{ url_for('blog.categorie',id=post.id, categorie = item) }}">{{ categorie }} </a> - 
+        <a class="light_link" href = "{{ url_for('blog.categorie',id=post.id, categorie = item) }}">{{ categorie }} </a> - 
     {% endfor %}
     <br/><br/>
 {% endblock %}
