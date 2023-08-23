@@ -34,6 +34,9 @@ def create_app(config_class=Config):
     from website.blog.post import bp as post_bp
     app.register_blueprint(post_bp, url_prefix='/blog/post')
 
+    from website.contact import bp as contact_bp
+    app.register_blueprint(contact_bp, url_prefix='/contact')
+
     from website.authentication import bp as auth_bp
     app.register_blueprint(auth_bp, url_prefix='/login')
 

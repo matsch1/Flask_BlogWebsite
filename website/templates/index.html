@@ -1,25 +1,33 @@
 {% extends 'base.html' %}
 
-{% block head %}
-{% endblock %}
-
 {% block header_content %}
-    <h1 class="mb-3">{{post.title}}</h1>
-    <b>By: {{post.author}} | {{post.date_posted|formatdatetime}}</b> <br/>
-    {% for categorie in categories %}
-        <a class = "light_link" href = "{{ url_for('blog.categorie',id=post.id, categorie = item) }}">{{ categorie }} </a> - 
-    {% endfor %}
+    <h1 class="mb-3">Blog</h1>
+    This is a collection of my learnings.
     <br/><br/>
 {% endblock %}
 
 {% block content %}
-    <div class="shadow p-3 mb-5 bg-body-tertiary rounded container px-4">
-        <h1 class="mb-3">{{post.title}}</h1>
-        {% if post.content_html %}
-            {{post.content_html | safe}} <br/>
-        {% else %}
-            {{post.content}} <br/>
-        {% endif %}
-        <hr>
-    </div>
+    {% for post in posts %}
+        <div class="shadow p-3 mb-5 bg-body-tertiary rounded container px-4">
+            <h2><a class = "dark_link" href="{{ url_for('post.show',id=post.id, slug=post.slug) }}">{{post.title}}</a></h2> <br/>
+            <b>By: {{post.author}} | {{post.date_posted|formatdatetime}}</b> <br/><br/>
+            <small>
+                <table>
+                    <tr>
+                        {% set list = post.categories.split(',') %}
+                        {% for item in list %}
+                            <td> <a class = "dark_link" href="{{ url_for('blog.categorie',id=post.id, categorie = item) }}">{{ item }}</a>&nbsp </td>
+                        {% endfor %} 
+                    </tr> 
+                </table>
+            </small>
+            <hr>
+            {% if post.content_html %}
+                {{post.content_html[:MAX_NUMBER_OF_CHARS_IN_PREVIEW] | safe}} ... <br/>
+            {% else %}
+                {{post.content[:MAX_NUMBER_OF_CHARS_IN_PREVIEW] }} ... <br/>
+            {% endif %}
+            <hr>
+        </div>
+    {% endfor %}
 {% endblock %}

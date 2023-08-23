@@ -32,3 +32,20 @@
   background-color: transparent;
   text-decoration: underline;
 }
+
+.nav-link:link {
+  color: #3D8E97;
+  background-color: transparent;
+  text-decoration: none;
+}
+.nav-link:visited {
+  color: #ADF7B6;
+  background-color: transparent;
+  text-decoration: none;
+}
+
+.nav-link :hover {
+  color: #FFEE93;
+  background-color: transparent;
+  text-decoration: underline;
+}
