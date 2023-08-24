@@ -2,8 +2,8 @@ from flask import render_template, redirect, url_for, flash, request, current_ap
 from flask_login import login_user
 from werkzeug.security import check_password_hash
 
-from app.authentication import bp
-from app.authentication import LoginForm, BlogWriterUser
+from website.authentication import bp
+from website.authentication import LoginForm, BlogWriterUser
 
 
 @bp.route('/', methods=['GET', 'POST'])

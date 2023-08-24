@@ -34,4 +34,4 @@ class BlogWriterUser(UserMixin):
 
 
 # muss ganz unten stehen
-from app.authentication import routes  # NOQA
+from website.authentication import routes  # NOQA

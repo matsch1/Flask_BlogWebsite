@@ -1,7 +1,7 @@
 from flask_sqlalchemy import SQLAlchemy
 import os
 
-from app.static.python.LineCounter import LineCounter
+from website.static.python.LineCounter import LineCounter
 
 
 db = SQLAlchemy()
@@ -20,8 +20,19 @@ def count_lines():
 def get_number_of_lines(coding_language):
 
     app_directory = os.getcwd()
-    app_directory = app_directory + "\\app"
 
-    line_counter = LineCounter(app_directory, coding_language)
+    spacer = detect_spacer(app_directory)
+
+    app_directory = app_directory + spacer + "website"
+
+    line_counter = LineCounter(app_directory, coding_language, spacer)
 
     return line_counter.number_of_lines
+
+def detect_spacer(directory):
+    if "/" in directory:
+        return "/"
+    elif  "\\" in directory:
+        return "\\"
+    else:
+        return None
