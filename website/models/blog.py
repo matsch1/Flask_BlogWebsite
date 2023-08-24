@@ -15,6 +15,7 @@ class Blog(db.Model):
         db.DateTime, default=datetime.now())
     slug = db.Column(db.String(255))
     categories = db.Column(db.String(100), nullable=True)
+    images = db.Column(db.Text, nullable=True)
 
     @staticmethod
     def on_changed_content(target, value, oldvalue, initiator):

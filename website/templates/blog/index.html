@@ -22,11 +22,20 @@
                 </table>
             </small>
             <hr>
-            {% if post.content_html %}
-                {{post.content_html[:MAX_NUMBER_OF_CHARS_IN_PREVIEW] | safe}} ... <br/>
-            {% else %}
-                {{post.content[:MAX_NUMBER_OF_CHARS_IN_PREVIEW] }} ... <br/>
-            {% endif %}
+            <table>
+                <tr>
+                    <td>
+                        {% if post.content_html %}
+                            {{post.content_html[:MAX_NUMBER_OF_CHARS_IN_PREVIEW] | safe}} ... 
+                        {% else %}
+                            {{post.content[:MAX_NUMBER_OF_CHARS_IN_PREVIEW] }} ...
+                        {% endif %}
+                    </td>
+                    <td>
+                        Test
+                    </td>
+                </tr> 
+            </table>
             <hr>
         </div>
     {% endfor %}

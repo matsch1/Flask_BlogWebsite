@@ -13,7 +13,9 @@ def show(slug, id):
     post = Blog.query.get(id)
     if post.categories:
         categories_array = __convert_string_to_array__(post.categories)
-    return render_template("blog/post/show.html", post=post, categories=categories_array)
+    if post.images:
+        images_array = __convert_array_to_string__(post.images)
+    return render_template("blog/post/show.html", post=post, categories=categories_array,images=images_array)
 
 
 @bp.route('/add', methods=['GET', 'POST'])
@@ -22,14 +24,14 @@ def add():
     form = BlogWriterForm()
 
     if form.validate_on_submit():
-        categories_array = []
-        for categorie in form.categories:
-            categories_array.append(categorie.data)
-            categorie.data = ""
-        categories_string = __convert_array_to_string__(categories_array)
+        categories_string = __convert_dbColum_to_string(form.categories)
+        for imageID in form.imageIDs:
+            if imageID.data:
+                imageID.data = 'https://drive.google.com/uc?id=' + imageID.data
+        images_string = __convert_dbColum_to_string(form.imageIDs)
 
         post = Blog(title=form.title.data,
-                    content=form.content.data, slug=form.slug.data, categories=categories_string,
+                    content=form.content.data, slug=form.slug.data, categories=categories_string,images=images_string,
                     author=form.author.data, date_posted=datetime.now())
         form.title.data = ""
         form.content.data = ""
@@ -50,8 +52,13 @@ def add():
 def edit(id, slug):
     post = Blog.query.get(id)
 
+    images_array = __convert_string_to_array__(post.images)
+    for index,image in enumerate(images_array):
+        url_split=image.split('=')
+        images_array[index] = url_split[-1]
+
     form = BlogWriterForm(title=post.title, slug=post.slug,
-                          author=post.author, content=post.content, categories=__convert_string_to_array__(post.categories))
+                          author=post.author, content=post.content, categories=__convert_string_to_array__(post.categories),imageIDs = images_array)
 
     if form.validate_on_submit():
         # current_app.logger.info('Submit pressed')
@@ -72,6 +79,13 @@ def edit(id, slug):
         return redirect(url_for('blog.index'))
     return render_template("blog/post/edit.html", form=form)
 
+def __convert_dbColum_to_string(dbColum):
+    array = []
+    for item in dbColum:
+        if item.data:
+            array.append(item.data)
+            item.data = ""
+    return __convert_array_to_string__(array)
 
 def __convert_array_to_string__(array):
     array_string = array[0]

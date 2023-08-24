@@ -16,6 +16,7 @@ class BlogWriterForm(FlaskForm):
     author = StringField("Author", validators=[
                          DataRequired()], default="Matthias Schäfer")
     categories = FieldList(StringField("Categorie"), min_entries=3)
+    imageIDs = FieldList(StringField("ImageID"), min_entries=3)
     submit = SubmitField("Post")
     logout = SubmitField(label='Logout', render_kw={'formnovalidate': True})
 
