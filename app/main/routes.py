@@ -11,6 +11,5 @@ from app.extensions import count_lines
 @bp.route('/')
 def index():
     posts = Blog.query.order_by(desc(Blog.date_posted))
-    number_of_lines = count_lines()
 
-    return render_template("index.html", posts=posts, number_of_lines=number_of_lines)
+    return render_template("index.html", posts=posts)

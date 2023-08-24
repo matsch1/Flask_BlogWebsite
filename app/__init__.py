@@ -6,6 +6,7 @@ from flask_migrate import Migrate
 from config import Config
 from app.extensions import db
 from app.authentication import BlogWriterUser
+from app.extensions import count_lines
 
 
 # Flask factory
@@ -52,5 +53,10 @@ def create_app(config_class=Config):
             return user
         else:
             return None
+
+    @app.context_processor
+    def inject_number_of_lines():
+        number_of_lines = count_lines()
+        return dict(number_of_lines=number_of_lines)
 
     return app
