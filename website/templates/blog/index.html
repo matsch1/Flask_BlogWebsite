@@ -24,15 +24,18 @@
             <hr>
             <table>
                 <tr>
-                    <td>
-                        {% if post.content_html %}
+                    {% if post.content_html %}
+                        <td width="70%">
                             {{post.content_html[:MAX_NUMBER_OF_CHARS_IN_PREVIEW] | safe}} ... 
-                        {% else %}
+                        </td>
+                    {% else %}
+                        <td width="70%">
                             {{post.content[:MAX_NUMBER_OF_CHARS_IN_PREVIEW] }} ...
-                        {% endif %}
-                    </td>
-                    <td>
-                        Test
+                        </td>
+                    {% endif %}
+                    <td width="30%" align="center">
+                        {% set images = post.images.split(',') %}
+                        <img src={{images[0]}} width="300px">
                     </td>
                 </tr> 
             </table>
