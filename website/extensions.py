@@ -36,3 +36,4 @@ def detect_spacer(directory):
         return "\\"
     else:
         return None
+    
