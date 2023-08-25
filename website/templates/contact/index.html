@@ -14,8 +14,9 @@
         {% else %}
             {{about_me.content[:MAX_NUMBER_OF_CHARS_IN_PREVIEW] }}... <br/>
         {% endif %}
-         <a class = "dark_link" href="{{ url_for('post.show',id=about_me.id, slug=about_me.slug) }}">Read More </a> 
+        <a class = "dark_link" href="{{ url_for('post.show',id=about_me.id, slug=about_me.slug) }}">Read More </a> 
     </div>
+    <br/><br/>
 
     <div class="shadow p-3 mb-5 bg-body-tertiary rounded container px-4">
         <h2>Contact Information</h2> <br/>
@@ -24,7 +25,6 @@
         <a class = "light_link" href ="https://www.linkedin.com/in/schaefer-matthias/" target="_blank"><i class="bi bi-linkedin"></i></a>&nbsp
         <a class = "light_link" href="https://github.com/matsch1" target="_blank"><i class="bi bi-github"></i></a>&nbsp
         <a class = "light_link" href="https://www.strava.com/athletes/18430548" target="_blank"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-strava" viewBox="0 0 16 16">
-            <path d="M6.731 0 2 9.125h2.788L6.73 5.497l1.93 3.628h2.766L6.731 0zm4.694 9.125-1.372 2.756L8.66 9.125H6.547L10.053 16l3.484-6.875h-2.112z"/>
-        </svg></a>
+            <path d="M6.731 0 2 9.125h2.788L6.73 5.497l1.93 3.628h2.766L6.731 0zm4.694 9.125-1.372 2.756L8.66 9.125H6.547L10.053 16l3.484-6.875h-2.112z"></svg></a>
     </div>
 {% endblock %}
