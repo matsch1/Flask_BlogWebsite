@@ -19,14 +19,8 @@ class Blog(db.Model):
 
     @staticmethod
     def on_changed_content(target, value, oldvalue, initiator):
-        allowed_tags = ['a', 'abbr', 'acronym', 'b', 'blockquote', 'code',
-                        'em', 'i', 'li', 'ol', 'pre', 'strong', 'ul',
-                        'h1', 'h2', 'h3', 'p', 'Img']
-        # target.content_html = bleach.linkify(bleach.clean(
-        #     markdown(value, output_format='html'),
-        #     tags=allowed_tags, strip=True))
-        target.content_html = bleach.linkify(
-            markdown(value, output_format='html'))
+        target.content_html= markdown(value, extensions=['fenced_code', 'toc',
+			'codehilite', 'meta', 'tables'], output_format="html5")
 
     def __repr__(self):
         return f'<Titel {self.title}>'
