@@ -1,6 +1,6 @@
 from flask import Blueprint
 from flask_wtf import FlaskForm  # pip install flask-wtf
-from wtforms import StringField, FieldList, SubmitField
+from wtforms import StringField, FieldList, SubmitField, TextAreaField
 from wtforms.validators import DataRequired, InputRequired, Length
 from wtforms.widgets import TextArea
 from flask_pagedown.fields import PageDownField
@@ -11,7 +11,7 @@ bp = Blueprint('blog', __name__)
 
 class BlogWriterForm(FlaskForm):
     title = StringField("Title", validators=[DataRequired()])
-    content = PageDownField('Enter Your Markdown', validators=[DataRequired()])
+    content = TextAreaField('Enter Your Markdown', render_kw={"rows": 70, "cols": 11})
     slug = StringField("Slug", validators=[DataRequired()])
     author = StringField("Author", validators=[
                          DataRequired()], default="Matthias Schäfer")
