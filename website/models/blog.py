@@ -1,6 +1,7 @@
 from datetime import datetime
 import bleach
 from markdown import markdown
+from markdown.extensions.toc import TocExtension
 
 from website.extensions import db
 
@@ -19,7 +20,7 @@ class Blog(db.Model):
 
     @staticmethod
     def on_changed_content(target, value, oldvalue, initiator):
-        target.content_html= markdown(value, extensions=['fenced_code', 'toc',
+        target.content_html= markdown(value, extensions=['fenced_code', TocExtension(baselevel=3),
 			'codehilite', 'meta', 'tables'], output_format="html5")
 
     def __repr__(self):

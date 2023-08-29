@@ -59,4 +59,10 @@ def create_app(config_class=Config):
         number_of_lines = count_lines()
         return dict(number_of_lines=number_of_lines)
 
+    @app.context_processor
+    def utility_functions():
+        def print_in_console(message):
+            print(message)
+
+        return dict(mdebug=print_in_console)
     return app

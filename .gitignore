@@ -2,4 +2,4 @@ __pycache__/
 myenv/
 migrations/
 .env
-markdown_test.md
+markdowns/

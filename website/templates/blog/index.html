@@ -22,17 +22,19 @@
                 </table>
             </small>
             <hr>
+            {% set SPLIT_STRING = '<h2 id="introduction">Introduction</h2>' %}
+            {% if SPLIT_STRING in post.content_html %}
+                {% set list = post.content_html.split(SPLIT_STRING) %}
+                {% set content = list[-1] %}
+            {% else %}
+                {% set content = post.content_html %}
+            {% endif %}
+            <!--{{ mdebug(content) }}-->
             <table>
                 <tr>
-                    {% if post.content_html %}
-                        <td width="70%">
-                            {{post.content_html[:MAX_NUMBER_OF_CHARS_IN_PREVIEW] | safe}} ... 
-                        </td>
-                    {% else %}
-                        <td width="70%">
-                            {{post.content[:MAX_NUMBER_OF_CHARS_IN_PREVIEW] }} ...
-                        </td>
-                    {% endif %}
+                    <td width="70%">
+                        {{content[:MAX_NUMBER_OF_CHARS_IN_PREVIEW] | safe}} ... 
+                    </td>
                     <td width="30%" align="center">
                         {% set images = post.images.split(',') %}
                         <img src={{images[0]}} width="300px">
