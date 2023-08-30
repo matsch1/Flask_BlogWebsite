@@ -22,14 +22,13 @@
                 </table>
             </small>
             <hr>
-            {% set SPLIT_STRING = '<h2 id="introduction">Introduction</h2>' %}
+            {% set SPLIT_STRING = '<h4 id="introduction">Introduction</h4>' %}
             {% if SPLIT_STRING in post.content_html %}
                 {% set list = post.content_html.split(SPLIT_STRING) %}
                 {% set content = list[-1] %}
             {% else %}
                 {% set content = post.content_html %}
             {% endif %}
-            <!--{{ mdebug(content) }}-->
             <table>
                 <tr>
                     <td width="70%">

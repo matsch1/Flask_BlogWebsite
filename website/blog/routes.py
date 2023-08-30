@@ -1,4 +1,4 @@
-from flask import render_template, request, current_app
+from flask import render_template
 from sqlalchemy import desc
 from flask_login import login_required
 

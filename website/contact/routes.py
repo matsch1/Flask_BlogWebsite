@@ -1,5 +1,4 @@
 from flask import render_template
-from sqlalchemy import desc
 from website.contact import bp
 from website.models.blog import Blog
 
