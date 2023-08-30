@@ -18,7 +18,7 @@ def create_app(config_class=Config):
 
     # Initialize Flask extensions here
     db.init_app(app)
-    migrate = Migrate(app, db)
+    # migrate = Migrate(app, db)
 
     login_manager = LoginManager()
     login_manager.init_app(app)
