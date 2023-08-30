@@ -4,3 +4,4 @@ migrations/
 .env
 markdowns/
 test.html
+app.db
