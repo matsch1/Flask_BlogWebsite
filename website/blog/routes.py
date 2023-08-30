@@ -22,7 +22,12 @@ def posts_edit():
 @bp.route('/<categorie>', methods=['GET', 'POST'])
 def categorie(categorie):
     posts = Blog.query.filter(Blog.categories.contains(categorie))
-    return render_template("blog/categorie.html", posts=posts, categorie=categorie)
+    return render_template("blog/categorie.html", posts=posts, categorie=categorie) # catgegorie=categorie kann wahrscheinlich gelöscht werden
+
+@bp.route('/<search_string>', methods=['GET', 'POST'])
+def search(search_string):
+    posts = Blog.query.filter(Blog.title.contains(search_string))
+    return render_template("blog/search.html", posts=posts)
 
 
 @bp.app_template_filter('formatdatetime')
