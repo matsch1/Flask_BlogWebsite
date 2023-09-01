@@ -8,7 +8,6 @@ from website.extensions import db
 from website.authentication import BlogWriterUser
 from website.extensions import count_lines
 
-
 # Flask factory
 
 
@@ -18,7 +17,7 @@ def create_app(config_class=Config):
 
     # Initialize Flask extensions here
     db.init_app(app)
-    #migrate = Migrate(app, db)
+    # migrate = Migrate(app, db)
 
     login_manager = LoginManager()
     login_manager.init_app(app)
@@ -63,6 +62,6 @@ def create_app(config_class=Config):
     def utility_functions():
         def print_in_console(message):
             print(message)
-
         return dict(mdebug=print_in_console)
+
     return app

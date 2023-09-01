@@ -1,5 +1,5 @@
-from flask import render_template
-from sqlalchemy import desc
+from flask import render_template, request
+from sqlalchemy import desc, func
 from flask_login import login_required
 
 from website.blog import bp
@@ -22,12 +22,18 @@ def posts_edit():
 @bp.route('/<categorie>', methods=['GET', 'POST'])
 def categorie(categorie):
     posts = Blog.query.filter(Blog.categories.contains(categorie))
-    return render_template("blog/categorie.html", posts=posts, categorie=categorie) # catgegorie=categorie kann wahrscheinlich gelöscht werden
+    # catgegorie=categorie kann wahrscheinlich gelöscht werden
+    return render_template("blog/categorie.html", posts=posts, categorie=categorie)
 
-@bp.route('/<search_string>', methods=['GET', 'POST'])
-def search(search_string):
-    posts = Blog.query.filter(Blog.title.contains(search_string))
-    return render_template("blog/search.html", posts=posts)
+
+@bp.route('/search', methods=['POST'])
+def search():
+    print(request.method)
+    for key, value in request.form.items():
+        if key == "Search":
+            posts = Blog.query.filter(Blog.title.ilike(f'%{value}%'))
+
+            return render_template("blog/search.html", posts=posts)
 
 
 @bp.app_template_filter('formatdatetime')

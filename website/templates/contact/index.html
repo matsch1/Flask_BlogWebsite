@@ -8,13 +8,23 @@
 
 {% block content %}
     <div class="shadow p-3 mb-5 bg-body-tertiary rounded container px-4">
-        <h2><a class = "dark_link" href="{{ url_for('post.show',id=about_me.id, slug=about_me.slug) }}">{{about_me.title}}</a></h2> <br/>
-        {% if about_me.content_html %}
-                {{about_me.content_html[:MAX_NUMBER_OF_CHARS_IN_PREVIEW] | safe}}...  <br/>
-        {% else %}
-            {{about_me.content[:MAX_NUMBER_OF_CHARS_IN_PREVIEW] }}... <br/>
-        {% endif %}<br/>
-        <a class = "dark_link" href="{{ url_for('post.show',id=about_me.id, slug=about_me.slug) }}">Read More </a> 
+        <table>
+            <tr>
+                <td width="70%">
+                    <h2><a class = "dark_link" href="{{ url_for('post.show',id=about_me.id, slug=about_me.slug) }}">{{about_me.title}}</a></h2> <br/>
+                    {% if about_me.content_html %}
+                            {{about_me.content_html[:MAX_NUMBER_OF_CHARS_IN_PREVIEW] | safe}}...  <br/>
+                    {% else %}
+                        {{about_me.content[:MAX_NUMBER_OF_CHARS_IN_PREVIEW] }}... <br/>
+                    {% endif %}<br/>
+                    <a class = "dark_link" href="{{ url_for('post.show',id=about_me.id, slug=about_me.slug) }}">Read More </a> 
+                </td>
+                <td width="30%" align="center">
+                    {% set images = about_me.images.split(',') %}
+                    <img src={{images[0]}} width="300px">
+                </td>
+            </tr> 
+        </table>
         <hr>
     </div>
     <br/> 
