@@ -28,7 +28,6 @@ def categorie(categorie):
 
 @bp.route('/search', methods=['POST'])
 def search():
-    print(request.method)
     for key, value in request.form.items():
         if key == "Search":
             posts = Blog.query.filter(Blog.title.ilike(f'%{value}%'))
