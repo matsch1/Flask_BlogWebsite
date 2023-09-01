@@ -1,7 +1,7 @@
 .dark_link:link {
-  color: black;
+  color: rgb(0, 0, 0);
   background-color: transparent;
-  text-decoration: none;
+  text-decoration: underline;
 }
 
 .dark_link:visited {
