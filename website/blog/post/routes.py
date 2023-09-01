@@ -43,7 +43,7 @@ def add():
 
     if request.method == 'POST' and form.logout.data:
         logout_user()
-        return redirect(url_for('blog.index'))
+        return redirect(url_for('blog.index', page_number=1))
 
     return render_template("blog/post/add.html", form=form)
 
@@ -75,7 +75,7 @@ def edit(id, slug):
 
     if request.method == 'POST' and form.logout.data:
         logout_user()
-        return redirect(url_for('blog.index'))
+        return redirect(url_for('blog.index', page_number=1))
     return render_template("blog/post/edit.html", form=form)
 
 
