@@ -23,7 +23,15 @@ def create_app(config_class=Config):
     login_manager.init_app(app)
     login_manager.login_view = 'authentication.index'
 
-    pagedown = PageDown(app)
+    @login_manager.user_loader
+    def load_user(user_id):
+        user = BlogWriterUser()
+        if user_id == user.id:
+            return user
+        else:
+            return None
+
+    # pagedown = PageDown(app) # kann wahrscheinlich gelöscht werden
 
     # Register blueprints here
     from website.main import bp as main_bp
@@ -41,17 +49,8 @@ def create_app(config_class=Config):
     from website.authentication import bp as auth_bp
     app.register_blueprint(auth_bp, url_prefix='/login')
 
-    @app.route('/test/')
-    def test_page():
-        return '<h1>Testing the Flask Application Factory Pattern</h1>'
-
-    @login_manager.user_loader
-    def load_user(user_id):
-        user = BlogWriterUser()
-        if user_id == user.id:
-            return user
-        else:
-            return None
+    from website.error_pages import bp as err_bp
+    app.register_blueprint(err_bp)
 
     @app.context_processor
     def inject_number_of_lines():
