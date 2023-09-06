@@ -5,15 +5,16 @@ load_dotenv()
 base_directory = os.path.abspath(os.path.dirname(__file__))
 
 
+def modify_database_URL(database_URL):
+    return database_URL.replace('postgres://', 'postgresql://')
+
+
 class Config:
     # secret key for forms
     SECRET_KEY = os.getenv("SECRET_KEY")
 
     # database
-    # SQLALCHEMY_DATABASE_URI = 'sqlite:///' + os.path.join(base_directory, 'app.db')
-    SQLALCHEMY_DATABASE_URI = os.getenv("DATABASE_URL_CODE")
+    SQLALCHEMY_DATABASE_URI = modify_database_URL(
+        os.getenv("DATABASE_URL"))
     SQLALCHEMY_TRACK_MODIFICATIONS = False
     ITEMS_PER_PAGE = 4
-
-    # error pages
-    # DEBUG = False

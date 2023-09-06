@@ -1,7 +1,5 @@
 from flask import Flask
 from flask_login import LoginManager
-from flask_pagedown import PageDown
-from flask_migrate import Migrate
 
 from config import Config
 from website.extensions import db
@@ -17,7 +15,6 @@ def create_app(config_class=Config):
 
     # Initialize Flask extensions here
     db.init_app(app)
-    # migrate = Migrate(app, db)
 
     login_manager = LoginManager()
     login_manager.init_app(app)
@@ -30,8 +27,6 @@ def create_app(config_class=Config):
             return user
         else:
             return None
-
-    # pagedown = PageDown(app) # kann wahrscheinlich gelöscht werden
 
     # Register blueprints here
     from website.main import bp as main_bp
@@ -53,7 +48,7 @@ def create_app(config_class=Config):
     app.register_blueprint(err_bp)
 
     @app.context_processor
-    def inject_number_of_lines():
+    def inject_base_html():
         number_of_lines = count_lines()
         return dict(number_of_lines=number_of_lines)
 
