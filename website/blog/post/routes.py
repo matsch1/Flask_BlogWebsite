@@ -60,15 +60,21 @@ def edit(id, slug):
     form = BlogWriterForm(title=post.title, slug=post.slug,
                           author=post.author, content=post.content, categories=__convert_string_to_array__(post.categories), imageIDs=images_array)
 
-    if form.validate_on_submit():
+    if form.submit.data:  # ignore logout
         categories_array = []
         for categorie in form.categories:
             categories_array.append(categorie.data)
         categories_string = __convert_array_to_string__(categories_array)
+        setattr(post, 'categories', categories_string)
+        for imageID in form.imageIDs:
+            if imageID.data:
+                imageID.data = 'https://drive.google.com/uc?id=' + imageID.data
+        images_string = __convert_dbColum_to_string(form.imageIDs)
+        setattr(post, 'images', images_string)
         setattr(post, 'title', form.title.data)
         setattr(post, 'content', form.content.data)
         setattr(post, 'slug', form.slug.data)
-        setattr(post, 'categories', categories_string)
+
         db.session.commit()
 
         flash("Blog Post Updated Successfully")
