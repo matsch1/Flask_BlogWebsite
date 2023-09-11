@@ -49,7 +49,7 @@ def categorie(categorie):
 def search():
     for key, value in request.form.items():
         if key == "Search":
-            posts = Blog.query.filter(Blog.title.ilike(f'%{value}%'))
+            posts = Blog.query.filter(Blog.content.ilike(f'%{value}%'))
 
             return render_template("blog/search.html", posts=posts, page_number=1, max_number_of_pages=1)
 

@@ -1,1 +1,18 @@
-{% include 'blog/index.html' %}
+{% if posts.count()>0 %}
+    {% include 'blog/index.html' %}
+{% else%}
+    {% extends 'base.html' %}
+
+    {% block header_content %}
+        <h1 class="mb-3">Search Result</h1>
+        No Items found!
+        <br/><br/>
+    {% endblock %}
+    {% block content %}
+        <center>
+            <h2>
+                No Items found - Try Again!
+            </h2>
+        </center>
+    {% endblock %}
+{% endif %}
