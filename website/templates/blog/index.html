@@ -29,8 +29,11 @@
             {% else %}
                 {% set content = post.content_html %}
             {% endif %}
-            {% set list = content.split("<center><img") %}
-            {% set content = list[0] %}
+            {% set SPLIT_STRING = '<center>' %}
+            {% if SPLIT_STRING in content %}
+                {% set list = content.split(SPLIT_STRING) %}
+                {% set content = list[0] %}  
+            {% endif %}
             <table>
                 <tr>
                     <td width="70%">

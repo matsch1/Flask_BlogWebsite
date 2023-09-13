@@ -60,11 +60,6 @@ def edit(id, slug):
     form = BlogWriterForm(title=post.title, slug=post.slug,
                           author=post.author, content=post.content, categories=__convert_string_to_array__(post.categories), imageIDs=images_array)
 
-    if request.form.get('google_drive_viewer_link'):
-        print(form.google_drive_viewer_link.data)
-        # form.google_drive_image_link.data = get_image_link_from_google_drive_link(
-        #     form.google_drive_viewer_link.data)
-
     if form.submit.data:  # ignore logout
         categories_array = []
         for categorie in form.categories:
