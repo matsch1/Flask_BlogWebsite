@@ -1,6 +1,8 @@
 from flask import Flask
 from flask_login import LoginManager
 from flask_talisman import Talisman
+from dotenv import load_dotenv
+import os
 
 from config import Config
 from website.extensions import db
@@ -11,6 +13,8 @@ from website.extensions import count_lines
 
 
 def create_app(config_class=Config):
+    load_dotenv()
+
     app = Flask(__name__)
     app.config.from_object(config_class)
 
@@ -49,7 +53,9 @@ def create_app(config_class=Config):
     app.register_blueprint(err_bp)
 
     # Wrap Flask app with Talisman for HTTPS
-    Talisman(app, content_security_policy=None)
+    in_production = os.getenv("IN_PRODUCTION")
+    if in_production == "True":
+        Talisman(app, content_security_policy=None)
 
     @app.context_processor
     def inject_base_html():

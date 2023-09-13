@@ -29,11 +29,11 @@ def get_number_of_lines(coding_language):
 
     return line_counter.number_of_lines
 
+
 def detect_spacer(directory):
     if "/" in directory:
         return "/"
-    elif  "\\" in directory:
+    elif "\\" in directory:
         return "\\"
     else:
         return None
-    
