@@ -51,18 +51,6 @@
                 {% endfor %}
             </tr> 
         </table>
-        <table>
-            <tr>  
-                <td>
-                    <form class="form-inline my-2 my-lg-0" method="POST" action="{{url_for('extensions.get_image_link_from_google_drive_link')}}">
-                    <input class="form-control mr-sm-2" type="search" placeholder="Google Drive Viewer Link" aria-label="Google Drive Viewer Link" name="Google Drive Viewer Link">
-                </td>
-                <td>
-                    <form class="form-inline my-2 my-lg-0">
-                        <input class="form-control mr-sm-2" type="search" placeholder="Google Drive Image Link" aria-label="Google Drive VieImagewer Link" name="Google Drive Image Link">
-                </td>
-            </tr> 
-        </table>
         <br/>
         <b>{{ form.content.label(class="form-label") }}</b>
         {{ form.content(class="form-control",rows="100") }}
