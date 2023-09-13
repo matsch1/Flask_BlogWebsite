@@ -1,5 +1,6 @@
 from flask import Flask
 from flask_login import LoginManager
+from flask_talisman import Talisman
 
 from config import Config
 from website.extensions import db
@@ -46,6 +47,9 @@ def create_app(config_class=Config):
 
     from website.error_pages import bp as err_bp
     app.register_blueprint(err_bp)
+
+    # Wrap Flask app with Talisman for HTTPS
+    Talisman(app, content_security_policy=None)
 
     @app.context_processor
     def inject_base_html():
