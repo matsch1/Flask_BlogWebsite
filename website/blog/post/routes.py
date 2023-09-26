@@ -49,6 +49,7 @@ def add():
 
 
 @bp.route('/edit/<slug>_<id>', methods=['GET', 'POST'])
+@login_required
 def edit(id, slug):
     post = Blog.query.get(id)
 

@@ -1,5 +1,5 @@
 from flask import render_template, redirect, url_for, flash, request
-from flask_login import login_user
+from flask_login import login_user, login_required
 from werkzeug.security import check_password_hash
 
 from website.authentication import bp
@@ -28,5 +28,6 @@ def index():
 
 
 @bp.route('/user_sites', methods=['GET', 'POST'])
+@login_required
 def user_sites():
     return render_template("authentication/user_sites.html")
