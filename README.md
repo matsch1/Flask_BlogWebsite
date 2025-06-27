@@ -1,4 +1,5 @@
 # Flask Blog Website
+DEPRECATED
 This is the repository for my blog website [matshCode.com](https://matshcode-e7e0e38551e8.herokuapp.com/).
 
 I build this as my first flask project. As my first web devlopment project as well.
